@@ -128,7 +128,10 @@ C'est ce qu'on a fait, puis on a tester avec les deux versions et avec la V1 nou
 
  ---
 
- 
+ Nous avons donc par exemple fussioner deux commits qui modifiait les fichiers markdown **README.md** et **ADVANCED.md**
+ Puis nous avons fait git cherry_pick eb31407 (le commit hash de la dernière fonctionnalité qui marche) sur la branche `feature/nouveau-graph`
+
+ Pourquoi faire un git cherry-pick ? Parce que concrétement, là ou avec rebase et merge on est obligé de faire des fusions, ici on ne récupère que le commit intéressant
 
 #### **Tâche 8 : Documentation et suivi du projet sur GitHub**
 - **Utilisation des Issues et du Project Board :**
@@ -142,11 +145,30 @@ C'est ce qu'on a fait, puis on a tester avec les deux versions et avec la V1 nou
 1. **Quels sont les avantages et les risques d'utiliser `git rebase` par rapport à `git merge` dans un contexte collaboratif ?**  
    Expliquez les situations où l'un serait préféré à l'autre et comment minimiser les risques liés à un rebase mal utilisé.
 
+---
+git merge est plus sur que git rebase, cela permet d'avoir l'historique de la modification mais va aussi créer des commits pas forcément utile. 
+git rebase permet d'éviter justement d'éviter les informations inutiles et d'avoir des commits propres mais par contre c'est un peu plus délicat à utiliser si par exemple un pull a déja été fait. Et en plus l'historique est modifié comme dit donc cela peux aussi problème si un collaborateur veux voir les modifications
+
+---
+
 2. **Quel est l'intérêt d'utiliser les tags ?**
    Expliquez en lien avec les requirements et la Semntic versionning method.
 
+---
+
+Les tags permettent de signaler une version stable ou une release, c'est a dire une version prête à être utilisée. Ils permettent d'avoir directement d'avoir des versions qui sont déja stable, spécifique et sans avoir à lire tout les commits efféctués. C'est la facilité a reconnaitre, à suivre, l'évolution d'un projet sans être surmener par les différents commits.
+
+Pour ce qui est du Semantic Versioning (SemVer), celui-ci respecte le format MAJOR.MINOR.PATCH, autrement dit par exemple ici passé de la v1.0.0 à la v2.0.0 signifie l'arrivé d'un changement majeur. (Le travail ici étant assez restreint on peut considérer cela comme majeur même si cela aurait fait plus sens de passer de v1.0.0 à v1.1.0), il pourrait aussi avoir incompatibilité entre les deux versions
+ Cela permet de bien gérer les versions en indiquant explicitement si une version apporte respectivement des modifications majeures, des ajouts ou des corrections de bugs
+
+---
+
 4. **Décrivez l'impact d'une mauvaise configuration du fichier `.gitignore` sur l'historique du projet.**  
    Quelles conséquences peut-on observer et comment rectifier la situation une fois le problème identifié ?
+
+---
+
+Si le .gitignore est mal configuré, des fichiers temporaires, de logs, de build ou de dépendances peuvent être commités dans le dépôt. Dans ce cas là peut rendre l'historique, le projet en lui-même, beaucoup plus lourd et rendre la relecture plus compliqué. De plus certains fichiers temporaires changent entre deux éxecutions donc il pourrait aussi avoir des problèmes lors des commits (avoir des versions défaillantes par exemple), des nouveaux bugs, brefs plein de problèmes qui ne seront jamais résolus et qui pourraient bloquer l'avancé du travail.
 
 ---
 
