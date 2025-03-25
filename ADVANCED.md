@@ -1,3 +1,4 @@
 ## L'utilité de `git rebase -i` :
  Dans un projet, la commande `git rebase` a beaucoup d'utilité, en commencant tout d'abord par le fait d'avoirun historique de tout nos commits, de toutes les modificiations que nous avons sauvegarder et facilement lisible, on en doit pas faire plusieurs ligne de commande juste celle là suffit.
  On peut aussi utilisé cette commande, pour appliquer les commit que l'on veut à la branche choisi.
+ C'est aussi utilie lorrque que l'on veut changer les commits, on peut écraser les commits, les modifiers pour enlever le surplus et avoir un commit **"parfait"** dès le départ. 
