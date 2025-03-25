@@ -1,140 +1,146 @@
-# TP : Création et Manipulation d'une Image Personnalisée avec Docker
+# TP git Worflow
 
-### Objectifs du TP
-- Comprendre comment créer une image Docker personnalisée à partir d'un `Dockerfile`.
-- Manipuler l'image avec des commandes Docker.
-- Lancer un conteneur à partir de cette image.
+## 1. Objectifs pédagogiques
+
+- **Maîtrise approfondie de Git :** Utiliser et comprendre les commandes de base et avancées (commit, branch, merge, rebase, etc.).
+- **Gestion fine des fichiers et versions :** Savoir configurer et utiliser le fichier `.gitignore` et les tags pour marquer des versions stables.
+- **Workflow collaboratif sur GitHub :** Organiser le travail en équipe, utiliser les pull requests, gérer les issues et documenter les processus.
+- **Intégration avec Docker :** Appréhender la gestion d’un projet Docker en parallèle de la gestion Git.
 
 ---
 
-## Étape 1 : Préparation du Projet
+## 2. Contexte et motivation
 
-1. **Structure du projet** :
+Le dépôt `docker_tp` correspond à un projet Docker qui peut déployer une application containerisée. L'enjeu est double :  
+- D'une part, comprendre comment gérer le code avec Git et GitHub en exploitant des fonctionnalités avancées.  
+- D'autre part, apprendre à travailler sur un projet Docker en gérant la configuration (Dockerfileà et en automatisant des tâches via des scripts et l'intégration continue avec github action (préalablement fourni).   
 
-Comme vu auparavant notre projet sera structurer en utilisant le principe de programmation modulaire. 
-Ce projet contient une application streamlit. C'est une web app écrite en python qui permet la visualisation et l'interaction avec le script. C'est un façon de mise à dispostion d'un modèle de manière simple et rapide. 
+Ce TP vous permettra de consolider vos compétences en gestion de versions et en déploiement containerisé tout en vous habituant aux pratiques de collaboration sur GitHub.
 
-2. **Creation d'image personnalisé**
+---
 
-Ouvrez le fichier Dockerfile. Ce fichier est appelé Dockerfile (comme son nom) permet de crée une image docker personnalisée. Il permet la construction des couches d'une image. Chaque ligne dois contenir une command. 
+## 3. Énoncé du problème
 
-> **Important** La manière la optimale d'écire le docker file c'est de commencer avec les choses qui ne bouge pas souvant dans note projet. Exemple les requirements, les variables d'environement les config. Le code python écrit evoluera souvant on doit le laisser à la fin.
+Vous devez travailler sur le dépôt existant `docker_tp` qui contient déjà une base de projet Docker. Vous devez le clonner en local et l'associer à un nouveau répo distant.
+Votre mission consiste à améliorer la gestion du code et l'organisation du projet en :
 
-En effet docker utilise le cache pour construire les images. On doit tirer avantage de ça pour qu'à chaque fois on crée une image on utilisera le cache des couches déjà construite. 
+- Configurant un fichier `.gitignore` optimisé,
+- Utilisant des branches pour développer et intégrer de nouvelles fonctionnalités,
+- Marquant des versions stables avec des tags Git,
+- Exploitant des commandes avancées (rebase, cherry-pick) et en explorant d'autres outils Git pour la collaboration,
+- Et en intégrant/ou automatisant des processus liés à Docker avec github action
 
-3. **Dockefile**
+---
 
-Observer les command dans les lignes du Dockerfile et essayez de comprendre ce qu'on fait dans chaque une. Appyez vous sur cette [documentation](https://docs.docker.com/build/concepts/dockerfile/#dockerfile-syntax) pour moieux comprendre les Dockerfile.
-Pour voir les autres commandes possibles réferez vous à cette [page](https://docs.docker.com/reference/dockerfile/)
+## 4. Tâches à réaliser
 
-## Étape 2: Docker commands
+#### **Tâche 1 : Préparation de l'environnement et vérification du dépôt**
+- **Clonage et configuration :**
+  - Clonez le dépôt `docker_tp` depuis GitHub sur votre machine.
+  - Vérifiez la configuration de Git avec `git config --list` et ajustez le nom et l'email si nécessaire.
+---
 
-1. **Build de l'image**
+#### **Tâche 2 : Configuration avancée du fichier `.gitignore`**
+- **Création et ajustement du `.gitignore` :**
+  - Ajoutez des fichiers et dossiers spécifiques à Docker comme les logs, caches, dossiers de build ou les fichiers temporaires générés par Docker (ex. : `*.log`, `tmp/`, `build/`, etc.).
+  - Vérifiez que ces fichiers ne sont pas suivis par Git à l’aide de `git status` après modification.
+- **Exemple d’entrées à inclure :**
+  - Fichiers de build (ex. : `/build/`)
+  - Fichiers temporaires (ex. : `*.tmp`)
+  - Fichiers de logs (ex. : `*.log`)
+---
 
-Rendez vous sur la racinde du dossier si nous y êtes pas encore avec :
+#### **Tâche 3 : Mise en place d'un workflow de développement collaboratif**
+- **Création de branches thématiques :**
+  - Créez des branches spécifiques pour chaque nouvelle fonctionnalité ou correction, par exemple :
+    - `feature/nouvau-graph`
+    - `feature/new-model`
+    - `bugfix/correction-config`
+    
+- **Développement sur ces branches :**
+  - Sur chaque branche, effectuez des commits réguliers décrivant clairement vos modifications.
+	  - Chque message de commit doit commencer par : "feat:", "fix:", "perf", "BREAKING CHANGE:" en fonction de la modification apportée
+  - Chaque étudiant ou groupe doit implémenter une fonctionnalité ou corriger un bug en utilisant sa branche dédiée.
+- **Pull Requests et Fusion :**
+  - Une fois une fonctionnalité achevée, ouvrez une pull request pour l'intégrer à la branche principale.
+  - Commenter et revoir le code des pull requests de vos coéquipiers, en résolvant les conflits éventuels lors du merge.
 
-```bash
-cd docker_tp
-```
-Construisez l'image Docker à partir du Dockerfile :
+---
 
-```bash
-docker build -t mon-app-streamlit:1.0 .
-```
-- -t: permet de nommer et tagger l'image (mon-app-streamlit:1.0).
+#### **Tâche 4 : Utilisation et gestion des tags Git**
+- **Création de tags pour marquer les versions :**
+  - Lorsqu'une version stable est atteinte (par exemple, après l'intégration d'une fonctionnalité majeure ou la finalisation d'une itération), créez un tag annoté avec une commande telle que :
+    ```
+    git tag -a v1.0.0 -m "Version 1.0.0 - Première release stable avec Dockerfile fonctionnel"
+    ```
+  - Poussez ensuite le tag sur GitHub :
+    ```
+    git push origin --tags
+    ```
+- **Vérification et listing :**
+  - Utilisez `git tag -l` pour lister tous les tags et documentez dans le README quelle version correspond à quelles fonctionnalités.
 
-- . : indique que le Dockerfile est dans le répertoire courant.
+- **Récupérez l'image docker:**
+    - Récuprérer l'image builder deupuis github et executer la en local
+---
 
-Observez le comportement à la création du docker. On remarque que l'execution ce fait en couche. Les premières couches provienne de notre image python déjà contruite. Les autres de nos commandes écrites dans le dockerfile.
+#### **Tâche 5 : Expérimentation avec des commandes Git avancées**
+- **Rebase interactif :**
+  - Sur une branche de fonctionnalité, utilisez `git rebase -i` pour revoir et réorganiser vos commits (fusionner certains commits, modifier les messages, etc.).  
+  - Expliquez dans un document annexe (par exemple, `ADVANCED.md`) quels bénéfices cet exercice apporte à l’historique du projet.
+- **Commande cherry-pick :**
+  - Identifiez dans l’historique un commit sur une branche qui apporte une correction ou une fonctionnalité utile.
+  - Appliquez ce commit sur une autre branche en utilisant `git cherry-pick <commit_hash>`.
+  - Décrivez la situation qui a motivé l’utilisation de cherry-pick et son impact sur le suivi de version.
+- **Exploration d’autres commandes utiles :**
+  - Utilisez `git stash` pour stocker temporairement des modifications non validées, puis réappliquez-les.
+  - Testez `git log --graph --all` pour visualiser l’historique des branches et comprendre la topologie du projet.
+  - Faites la même chose avec l'extension git graph de vscoduim
 
-à la fin du build vérfiez l'existance de l'image avec : 
 
-```bash
-docker images
-```
+#### **Tâche 8 : Documentation et suivi du projet sur GitHub**
+- **Utilisation des Issues et du Project Board :**
+  - Créez plusieurs issues sur GitHub pour les tâches à réaliser
+  - Organisez ces tâches dans un Project Board pour suivre l’avancement du projet.
 
-Qu'observez vous ? 
+---
 
-2. **Lancement d'un Conteneur**
+### 5. Questions théoriques supplémentaires
 
-``` bash
-docker run -p 8501:8501 --name mon-app-conteneur mon-app-streamlit:1.0
-``` 
-- -p 8501:8501 : mapper le port 8501 de votre machine au port 8501 du conteneur.
+1. **Quels sont les avantages et les risques d'utiliser `git rebase` par rapport à `git merge` dans un contexte collaboratif ?**  
+   Expliquez les situations où l'un serait préféré à l'autre et comment minimiser les risques liés à un rebase mal utilisé.
 
-- --name : nommer le conteneur.
+2. **Quel est l'intérêt d'utiliser les tags ?**
+   Expliquez en lien avec les requirements et la Semntic versionning method.
 
-Accédez à l'application : Ouvrez votre navigateur et accédez à http://localhost:8501.
+4. **Décrivez l'impact d'une mauvaise configuration du fichier `.gitignore` sur l'historique du projet.**  
+   Quelles conséquences peut-on observer et comment rectifier la situation une fois le problème identifié ?
 
-Qu'aubservez vous dans le terminal ?
+---
 
-- Revenez sur le terminal et arrêtez l'execution du container avec en appyant sur ctrl+C.
+### 6. Évaluation
 
-2. **Lancement d'un en mode détaché Conteneur**
+Les critères d'évaluation de ce TP seront :
 
-```bash
-docker run -d -p 8501:8501 --name mon-app-conteneur mon-app-streamlit:1.0
-```
-Accédez à l'application encore une fois : Ouvrez votre navigateur et accédez à http://localhost:8501.
+- **Qualité de la configuration et des pratiques Git :**
+  - Exactitude et pertinence du fichier `.gitignore`.
+  - Utilisation judicieuse des branches et des tags.
+  - Efficacité de l'utilisation des commandes avancées (rebase, cherry-pick, etc.).
 
-- Qu'elle est la différence entre les deux commande avec "-d" et sans ? 
-- Quel est la meilleur façon de mise en production ?  
-- Créez un autre container à partitr de la même image.
-- Rappelez la différence entre image docker et container docker.
+- **Documentation et communication :**
+  - Clarté du `README.md` et de la documentation associée (`ADVANCED.md`, `ENV.md`).
+  - Bonne gestion et suivi du projet via les Issues et le Project Board sur GitHub.
 
-## Étape 4 : Manipulation de l'image et du Conteneur
+- **Collaboration et résolution de conflits :**
+  - Qualité des échanges via les pull requests.
+  - Capacité à résoudre les conflits et à documenter les processus via les commits.
 
-1. **Montoring des container**
+- **Réponses aux questions théoriques :**
+  - Pertinence, clarté et profondeur des explications fournies.
 
-```bash
-docker ps
-```
+---
 
-- Qu'observez vous ?
+### 7. Extensions (facultatif)
 
-2. **Arret du container**
-
-```bash
-docker stop mon-app-conteneur
-```
-
-3. **Redémarrer le conteneur**
-
-```bash
-docker start mon-app-conteneur
-```
-
-4. **Supprimer le conteneur**
-
-```bash
-docker rm -f mon-app-conteneur
-```
-- Verifier si le container et bien arrêté.
-
-5. **Exécuter un conteneur interactivement (pour debugger ou tester) :**
-
-```bash
-docker run -it --rm mon-app-streamlit:1.0 /bin/bash
-```
-- Ou on se trouve à ce moment par rapport au container ?
-
-6. **Logs du container**
-
-- Executez la commande :
-
-```bash
-docker logs mon-app-conteneur
-```
-Qu'est ce que vous observez ? 
-
-7 **Optionnel: Supression**
-
-- Supprimez le container avec :
-```bash
-docker rm -f mon-app-conteneur
-```
-- Supprimez l'image avec :
-
-```
-docker rmi mon-app-streamlit:1.0
-```
+- **Mise en place d'une intégration continue CI :**
+  - Configurez GitHub Actions ou un autre outil CI pour automatiser le build (inspirez vous de celui qui existe déjà sur le repo docker_tp)
