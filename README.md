@@ -40,6 +40,8 @@ Votre mission consiste à améliorer la gestion du code et l'organisation du pro
   - Vérifiez la configuration de Git avec `git config --list` et ajustez le nom et l'email si nécessaire.
 ---
 
+<span style="color: #fff; font-family: Arial;">Nous travaillerons ici sur le depot Github **comptecedric**, tout a été configuré respectivement comme demandé dans les ordinateurs où le travail sera effectué.</span>
+
 #### **Tâche 2 : Configuration avancée du fichier `.gitignore`**
 - **Création et ajustement du `.gitignore` :**
   - Ajoutez des fichiers et dossiers spécifiques à Docker comme les logs, caches, dossiers de build ou les fichiers temporaires générés par Docker (ex. : `*.log`, `tmp/`, `build/`, etc.).
@@ -49,6 +51,11 @@ Votre mission consiste à améliorer la gestion du code et l'organisation du pro
   - Fichiers temporaires (ex. : `*.tmp`)
   - Fichiers de logs (ex. : `*.log`)
 ---
+
+<span style="color: #fff; font-family: Arial;">Tout d'abord un première question qu'on pourrait se poser est à quoi sert le fichier `.gitignore`, celui nous permet de choisir quels fichiers doit ignorer et ne doit pas être suivi. <br>
+Ici nous avons rajouté dans ce fichier,  `/build/`,  `*.tmp`, et `*.log`, et avec `git status`, on voit bien que les fichiers ne sont pas suivis.
+</span>
+
 
 #### **Tâche 3 : Mise en place d'un workflow de développement collaboratif**
 - **Création de branches thématiques :**
@@ -66,6 +73,17 @@ Votre mission consiste à améliorer la gestion du code et l'organisation du pro
   - Commenter et revoir le code des pull requests de vos coéquipiers, en résolvant les conflits éventuels lors du merge.
 
 ---
+<span style="color: #fff; font-family: Arial;">
+
+Nous avons défini trois branches :
+- `feature/nouvau-graph` : Nous avons  mis en place une nouvelle section (qui n'est malheuresement pas fonctionnelle mais ou le principe de la conception à été utilisé), mettant en place show_pdp_analysis ainsi que l'envie d'utilisé partial_dependance_plot de sklearn. Or en travaillant sur des nouvelles versions de sklearn, partial_dependance_plot n'existe plus donc des erreurs sont vite arrivés c'est pour cela qu'à partir de cette branche nous avons crées une autre branche :
+    - `bugfix/correction-config` : Ici nous avons corrigés les *erreurs de python* pour faire en sorte que dans notre app la nouvelle section apparaissent et que tout les bugs problèmes disparaissent (le problème initiale de la fonctionnalité est, comme dit auparavant, resté).
+    Pour verifier qu'il s'agissait bien d'une sous branche de nouveau-graph, nous avons fait `git log --oneline --graph --decorate --all` et nous avons eu **HEAD -> bugfix/correction-config, origin/feature/nouveau-graph, feature/nouveau-graph** comme résulat prouvant que c'était bon.
+    Et finalement après corrigé les bugs nous avons fait `git checkout feature/nouveau-graph` puis `git merge bugfix/correction-config` afin de fusionner les fix dans la branch
+- `feature/new-model`
+</span>
+
+
 
 #### **Tâche 4 : Utilisation et gestion des tags Git**
 - **Création de tags pour marquer les versions :**
