@@ -3,4 +3,8 @@
 .vscode
 /build/
 *.tmp
+<<<<<<< HEAD
 *.log
+=======
+*.log
+>>>>>>> 50aa0be (fix: modif gitignore)
