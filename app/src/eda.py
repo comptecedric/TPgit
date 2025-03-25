@@ -141,4 +141,17 @@ def eda(df: pd.DataFrame) -> None:
             fig = px.box(df, x="y", y=col, title=title)
             st.plotly_chart(fig, use_container_width=True)
 
+     # Visualisation des données manquantes
+    st.subheader("Visualisation des données manquantes")
+    missing_data = df.isnull().sum()
+    missing_data_percentage = (missing_data / len(df)) * 100
+    missing_data_df = pd.DataFrame({"Column": missing_data.index, "Missing Data (%)": missing_data_percentage})
+
+    # Affichage sous forme de graphique
+    fig = px.bar(missing_data_df, x="Column", y="Missing Data (%)", 
+                 title="Pourcentage de données manquantes par colonne", labels={'x': 'Colonne', 'y': 'Données manquantes (%)'})
+    st.plotly_chart(fig, use_container_width=True)
+
     logger.info("Analyse exploratoire terminée")
+
+
