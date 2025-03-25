@@ -83,7 +83,7 @@ Nous avons défini trois branches :
     - `bugfix/correction-config` : Ici nous avons corrigés les *erreurs de python* pour faire en sorte que dans notre app la nouvelle section apparaissent et que tout les bugs problèmes disparaissent (le problème initiale de la fonctionnalité est, comme dit auparavant, resté).
     Pour verifier qu'il s'agissait bien d'une sous branche de nouveau-graph, nous avons fait `git log --oneline --graph --decorate --all` et nous avons eu **HEAD -> bugfix/correction-config, origin/feature/nouveau-graph, feature/nouveau-graph** comme résulat prouvant que c'était bon.
     Et finalement après corrigé les bugs nous avons fait `git checkout feature/nouveau-graph` puis `git merge bugfix/correction-config` afin de fusionner les fix dans la branch
-- `feature/new-model` :
+- `feature/new-model` : On regarde et visualise les valeurs manquantes dans en tant que nouvelle feature ici. Pas de problème de bug, donc pas de nouvelle branche créer pour cela,  mais finalement cela a permis d'accepter la feature avant de faire un merge.
 </span>
 
 ---
