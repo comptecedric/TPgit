@@ -1,7 +1,7 @@
 from loguru import logger
 from src.data_loader import load_data
 from src.eda import eda
-from src.model import predict, train_model
+from src.model import predict, train_model, show_pdp_analysis
 from src.utils import setup_logging
 
 
@@ -24,6 +24,10 @@ def main():
     elif choice == "Prédiction":
         model, scaler, label_encoder = train_model(df)
         predict(model, scaler, label_encoder)
+
+    if model is not None:
+            # Afficher l'analyse des interactions des variables
+            show_pdp_analysis(model, df.drop(columns=["y"]), df.columns)
     
     logger.info("Application terminée")
 

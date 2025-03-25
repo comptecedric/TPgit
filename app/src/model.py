@@ -9,6 +9,13 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.inspection import plot_partial_dependence
+from sklearn.inspection import partial_dependence
+import matplotlib.pyplot as plt
+import pdpbox
+from pdpbox import pdp
+import numpy as np
+
 
 
 def train_model(
@@ -191,3 +198,54 @@ def predict(model: Any, scaler: Any, label_encoder: Any) -> None:
         st.write(f"Le modèle prédit : {label_encoder.inverse_transform(prediction)[0]}")
 
     logger.info("Prédiction terminée")
+
+
+
+def plot_partial_dependence_plot(model, X, feature_names, target_class=None):
+    """
+    Crée et affiche un diagramme de dépendance partielle (PDP) pour les caractéristiques du modèle.
+    Args:
+        model: Le modèle entraîné.
+        X: Les données d'entrée utilisées pour la prédiction.
+        feature_names: Les noms des colonnes des caractéristiques.
+        target_class: Optionnel, classe cible à examiner pour les modèles multiclasses.
+    """
+    fig, ax = plt.subplots(figsize=(10, 8))
+    
+    # Utiliser sklearn pour créer un PDP
+    plot_partial_dependence(model, X, features=range(X.shape[1]), feature_names=feature_names, ax=ax)
+    st.pyplot(fig)
+
+def plot_pdpbox(model, X, feature_names):
+    """
+    Utilise la bibliothèque PDPBox pour créer un PDP plus détaillé et le visualiser via Streamlit.
+    Args:
+        model: Le modèle entraîné.
+        X: Les données d'entrée.
+        feature_names: Les noms des colonnes des caractéristiques.
+    """
+    # Choisir une caractéristique à analyser
+    feature = st.selectbox("Choisir une caractéristique pour analyser l'impact", feature_names)
+    
+    # Utilisation de PDPBox pour générer le PDP
+    pdp_dist = pdp.pdp_isolate(model=model, dataset=X, model_features=feature_names, feature=feature)
+    
+    # Tracer le PDP
+    fig, axes = plt.subplots(figsize=(10, 6))
+    pdp.pdp_plot(pdp_dist, feature)
+    st.pyplot(fig)
+
+def show_pdp_analysis(model, X, feature_names):
+    """
+    Affiche les PDP interactifs dans l'interface Streamlit.
+    """
+    st.subheader("Analyse des Interactions des Variables")
+
+    # Afficher le PDP de manière interactive
+    plot_type = st.selectbox("Sélectionner le type de PDP", ["sklearn", "PDPBox"])
+    
+    if plot_type == "sklearn":
+        plot_partial_dependence_plot(model, X, feature_names)
+    else:
+        plot_pdpbox(model, X, feature_names)
+
