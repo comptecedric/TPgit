@@ -8,7 +8,13 @@ from loguru import logger
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.preprocessing import LabelEncoder, StandardScaler, OneHotEncoder
+from sklearn.inspection import partial_dependence
+import matplotlib.pyplot as plt
+import pdpbox
+from pdpbox import pdp
+import numpy as np
+
 
 
 def train_model(
@@ -191,3 +197,46 @@ def predict(model: Any, scaler: Any, label_encoder: Any) -> None:
         st.write(f"Le modèle prédit : {label_encoder.inverse_transform(prediction)[0]}")
 
     logger.info("Prédiction terminée")
+
+
+
+from sklearn.inspection import partial_dependence
+import matplotlib.pyplot as plt
+import pandas as pd
+
+def show_pdp_analysis(model, X, feature_names):
+    """
+    Affiche l'analyse des dépendances partielles pour une feature spécifique.
+    Args:
+        model : Le modèle entraîné
+        X : Les données d'entrée
+        feature_names : Liste des noms de toutes les features
+    """
+    # Encoder les variables catégorielles avant de passer les données à PDP
+    X_encoded = pd.get_dummies(X, drop_first=True)
+
+    # Sélectionner une feature pour la PDP, par exemple la première
+    feature = feature_names[0]  # Choisir la première feature, tu peux adapter selon ton besoin
+
+    # Calcul des PDP
+    pdp_results = partial_dependence(model, X_encoded, features=[feature])
+
+    # Les résultats sont dans 'average' et 'values', mais leur format a changé.
+    # Vérification des clés pour s'assurer qu'elles existent
+    print(pdp_results.keys())  # Pour voir les clés disponibles dans pdp_results
+
+    # Afficher les résultats
+    fig, ax = plt.subplots(figsize=(8, 6))
+
+    # Accéder aux bonnes clés
+    if 'average' in pdp_results and 'values' in pdp_results:
+        ax.plot(pdp_results['values'][0], pdp_results['average'][0])
+        ax.set_xlabel(feature)
+        ax.set_ylabel('Partial Dependence')
+        ax.set_title(f'Partial Dependence Plot for {feature}')
+        plt.show()
+    else:
+        print("Clés 'average' ou 'values' non trouvées dans le résultat.")
+
+
+
