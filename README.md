@@ -42,6 +42,8 @@ Votre mission consiste à améliorer la gestion du code et l'organisation du pro
 
 <span style="color: #fff; font-family: Arial;">Nous travaillerons ici sur le depot Github **comptecedric**, tout a été configuré respectivement comme demandé dans les ordinateurs où le travail sera effectué.</span>
 
+---
+
 #### **Tâche 2 : Configuration avancée du fichier `.gitignore`**
 - **Création et ajustement du `.gitignore` :**
   - Ajoutez des fichiers et dossiers spécifiques à Docker comme les logs, caches, dossiers de build ou les fichiers temporaires générés par Docker (ex. : `*.log`, `tmp/`, `build/`, etc.).
@@ -56,6 +58,7 @@ Votre mission consiste à améliorer la gestion du code et l'organisation du pro
 Ici nous avons rajouté dans ce fichier,  `/build/`,  `*.tmp`, et `*.log`, et avec `git status`, on voit bien que les fichiers ne sont pas suivis.
 </span>
 
+---
 
 #### **Tâche 3 : Mise en place d'un workflow de développement collaboratif**
 - **Création de branches thématiques :**
@@ -80,10 +83,10 @@ Nous avons défini trois branches :
     - `bugfix/correction-config` : Ici nous avons corrigés les *erreurs de python* pour faire en sorte que dans notre app la nouvelle section apparaissent et que tout les bugs problèmes disparaissent (le problème initiale de la fonctionnalité est, comme dit auparavant, resté).
     Pour verifier qu'il s'agissait bien d'une sous branche de nouveau-graph, nous avons fait `git log --oneline --graph --decorate --all` et nous avons eu **HEAD -> bugfix/correction-config, origin/feature/nouveau-graph, feature/nouveau-graph** comme résulat prouvant que c'était bon.
     Et finalement après corrigé les bugs nous avons fait `git checkout feature/nouveau-graph` puis `git merge bugfix/correction-config` afin de fusionner les fix dans la branch
-- `feature/new-model`
+- `feature/new-model` :
 </span>
 
-
+---
 
 #### **Tâche 4 : Utilisation et gestion des tags Git**
 - **Création de tags pour marquer les versions :**
@@ -99,7 +102,15 @@ Nous avons défini trois branches :
   - Utilisez `git tag -l` pour lister tous les tags et documentez dans le README quelle version correspond à quelles fonctionnalités.
 
 - **Récupérez l'image docker:**
-    - Récuprérer l'image builder deupuis github et executer la en local
+    - Récupérer l'image builder depuis github et executer la en local
+---
+
+Le premier tag  **"Version 1.0.0"** a été fait sur le main directement sans les modifications eu avec les branches.
+Le deuxième tag **"Version 2.0.0"** a été fait sur le main avec les modifications de  `feature/nouvau-graph`.
+
+On aura donc deux tags en faisant `git tag -l` et pour changer on aura juste à faire `git checkout v1.0.0` par exemple.
+C'est ce qu'on a fait, puis on a tester avec les deux versions et avec la V1 nous avions bien que trois sections et avec la V2, 4.
+
 ---
 
 #### **Tâche 5 : Expérimentation avec des commandes Git avancées**
@@ -115,6 +126,9 @@ Nous avons défini trois branches :
   - Testez `git log --graph --all` pour visualiser l’historique des branches et comprendre la topologie du projet.
   - Faites la même chose avec l'extension git graph de vscoduim
 
+ ---
+
+ 
 
 #### **Tâche 8 : Documentation et suivi du projet sur GitHub**
 - **Utilisation des Issues et du Project Board :**
